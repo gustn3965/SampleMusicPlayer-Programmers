@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Music View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="MusicViewController" customModule="MusicPlayer_Programmers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zUQ-ic-W3B">
+                                <rect key="frame" x="-20" y="94" width="454" height="768"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zux-wc-Q1b" customClass="MusicView" customModule="MusicPlayer_Programmers" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="454" height="461"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4B4-bu-yeG" customClass="LyricsTableView" customModule="MusicPlayer_Programmers" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="461" width="454" height="153.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="po5-mo-3Nt" customClass="MusicControllerView" customModule="MusicPlayer_Programmers" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="614.5" width="454" height="153.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="po5-mo-3Nt" firstAttribute="height" secondItem="zUQ-ic-W3B" secondAttribute="height" multiplier="0.2" id="Kus-uE-IIO"/>
+                                    <constraint firstItem="4B4-bu-yeG" firstAttribute="height" secondItem="zUQ-ic-W3B" secondAttribute="height" multiplier="0.19987" id="kGF-8B-XO9"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zUQ-ic-W3B" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="OD6-9w-unr"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="leading" secondItem="zUQ-ic-W3B" secondAttribute="leading" constant="20" id="bUn-Qk-DOC"/>
+                            <constraint firstItem="zUQ-ic-W3B" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="20" id="feE-h0-E72"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="zUQ-ic-W3B" secondAttribute="bottom" id="ghZ-EX-2HJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lyricsView" destination="4B4-bu-yeG" id="znW-wd-zm9"/>
+                        <outlet property="musicController" destination="po5-mo-3Nt" id="9Qw-VK-uYS"/>
+                        <outlet property="musicView" destination="Zux-wc-Q1b" id="8MA-kT-3WH"/>
+                        <outlet property="stackView" destination="zUQ-ic-W3B" id="5K5-H6-f98"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.623188405797109" y="71.651785714285708"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
