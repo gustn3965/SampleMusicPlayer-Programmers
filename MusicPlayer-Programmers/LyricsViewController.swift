@@ -81,8 +81,11 @@ class LyricsViewController: UIViewController {
     @objc func dismissViewController() {
         musicController?.removeFromSuperview()
         syncButton.tintColor = .gray
-        NotificationCenter.default.post(name: NSNotification.Name("dismissLyrics"), object: nil, userInfo: ["dismissLyrics": true])
         lyricsTableView.isAvailableForTouchCell = false
+        NotificationCenter.default.post(name: NSNotification.Name("dismissLyrics"), object: nil, userInfo: ["dismissLyrics": true])
+        if let gesture = dismissGesture, let gestures = view.gestureRecognizers, !gestures.contains(gesture) {
+            view.addGestureRecognizer(gesture)
+        }   
         self.dismiss(animated: true, completion: nil)
     }
     
