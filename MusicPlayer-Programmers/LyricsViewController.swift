@@ -103,6 +103,10 @@ class LyricsViewController: UIViewController {
         }
     }
     
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
 }
 
 // MARK: -  Table View DataSource 

@@ -148,6 +148,10 @@ class MusicViewController: UIViewController {
             view.layoutIfNeeded()
         }
     }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
 }
 
 // MARK: - TableView DataSource, Delegate
