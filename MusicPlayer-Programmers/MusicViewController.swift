@@ -18,11 +18,8 @@ class MusicViewController: UIViewController {
     let animationTransition = AnimationTransition()
     var player: AVAudioPlayer?
     let musicFetcher = MusicFetcher()
-    var isInterruptable = false
     var timer: Timer?
-    
     lazy var lyricsViewController = LyricsViewController()
-    
     
     // MARK: - method
     override func viewDidLoad() {
@@ -34,27 +31,7 @@ class MusicViewController: UIViewController {
         print("viewdidload ")
     }
     
-    // MARK: - Action
-    /// `MusicPlayer` 및 `MusicImage` 가져오기
-    func getMusicInfor() {
-        musicFetcher.getMusicInfo { audioResult in
-            switch audioResult {
-            case .success(let player):
-                self.setMusicPlayer(musicPlayer: player)
-            case .failure(let error):
-                print(error)
-            }
-            
-        } imageCompletion: { imageResult in
-            switch imageResult {
-            case .success(let image):
-                self.setMusicView(image)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
+    // MARK: - Setting View
     func setMusicPlayer(musicPlayer: AVAudioPlayer) {
         DispatchQueue.main.async { [self] in
             player = musicPlayer
@@ -94,7 +71,6 @@ class MusicViewController: UIViewController {
         }
     }
     
-    // MARK: - Setting View
     func setLyricsView() {
         guard let song = musicFetcher.song else { return }
         lyricsView.fontSize = UIFont.preferredFont(forTextStyle: .callout)
@@ -108,17 +84,38 @@ class MusicViewController: UIViewController {
         lyricsViewController.lyricsTableView.lyrics = song.lyrics
     }
     
+    func addGestureToLyricsView() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(presentLyricViewConrtoller))
+        lyricsView.addGestureRecognizer(gesture)
+        lyricsView.isUserInteractionEnabled = true
+    }
+    
+    // MARK: - Action
+    /// `MusicPlayer` 및 `MusicImage` 가져오기
+    func getMusicInfor() {
+        musicFetcher.getMusic { audioResult in
+            switch audioResult {
+            case .success(let player):
+                self.setMusicPlayer(musicPlayer: player)
+            case .failure(let error):
+                print(error)
+            }
+            
+        } imageCompletion: { imageResult in
+            switch imageResult {
+            case .success(let image):
+                self.setMusicView(image)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     /// MusicController에게 `player`, `lyricsView` 할당하기
     func connectPlayerToMusicController() {
         musicController.player = player
         musicController.lyricsView = lyricsView
         musicController.durationTimeLabel.text = convertToString(by: player?.duration)
-    }
-    
-    func addGestureToLyricsView() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(presentLyricViewConrtoller))
-        lyricsView.addGestureRecognizer(gesture)
-        lyricsView.isUserInteractionEnabled = true
     }
     
     /// `LyricsViewController` (큰 가사) 띄우기
@@ -153,9 +150,6 @@ class MusicViewController: UIViewController {
     }
 }
 
-
-
-
 // MARK: - TableView DataSource, Delegate
 extension MusicViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -169,7 +163,7 @@ extension MusicViewController: UITableViewDataSource {
     }
 }
 
-
+// MARK: - Transition Delegate
 extension MusicViewController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         animationTransition.isMusicView = false

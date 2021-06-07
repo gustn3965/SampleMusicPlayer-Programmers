@@ -31,7 +31,7 @@ class MusicPlayer_ProgrammersTests: XCTestCase {
         let musicFetcher = MusicFetcher()
         let fileURL = "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/music.mp3"
         timeout(4) { exp in
-            musicFetcher.getMusic(url: fileURL, { result in
+            musicFetcher.getMusicPlayer(url: fileURL, { result in
                 exp.fulfill()
                 switch result {
                 case .success(_):
@@ -48,7 +48,7 @@ class MusicPlayer_ProgrammersTests: XCTestCase {
         let musicFetcher = MusicFetcher()
         let imageURL = "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-flo/cover.jpg"
         timeout(4) { exp in
-            musicFetcher.getImage(url: imageURL, { result in
+            musicFetcher.getMusicImage(url: imageURL, { result in
                 exp.fulfill()
                 switch result {
                 case .success(_):
@@ -66,7 +66,7 @@ class MusicPlayer_ProgrammersTests: XCTestCase {
         let startTime = CFAbsoluteTimeGetCurrent()
         
         timeout(4) { exp in
-            musicFetcher.getMusicInfo(audioCompletion: { result in
+            musicFetcher.getMusic(audioCompletion: { result in
                 exp.fulfill()
                 switch result {
                 case .success(_):

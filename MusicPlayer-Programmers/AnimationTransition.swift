@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AnimationTransition: NSObject,  UIViewControllerAnimatedTransitioning {
+class AnimationTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     var isMusicView = true
 

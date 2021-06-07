@@ -7,9 +7,6 @@
 
 import Foundation
 
-
-
-
 class SongFetcher {
     typealias SongResult = Result<Song, MusicFetcherError>
     var songURL: String?

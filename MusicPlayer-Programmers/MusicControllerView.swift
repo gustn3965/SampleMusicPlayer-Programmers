@@ -30,34 +30,33 @@ class MusicControllerView: UIView {
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadView()
-        addSubview(helpTimeLabel)
-        setActionToButtonView()
-        setTouchGestureToProgressBar()
-        addObserverForSyncingLyrics()
+        setInitialView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setInitialView()
+    }
+    
+    // MARK: - Setting View
+    func setInitialView() {
         loadView()
         addSubview(helpTimeLabel)
         setActionToButtonView()
         setTouchGestureToProgressBar()
         addObserverForSyncingLyrics()
     }
-    
-    // MARK: - method
+
     func loadView() {
         let bundle = Bundle(for: MusicControllerView.self)
         let nib = UINib(nibName: "MusicControllerView", bundle: bundle)
         guard let view = nib.instantiate(withOwner: self).first as? UIView else { return }
         view.frame = bounds
         addSubview(view)
-
-        playButton.setImage(UIImage(systemName: "play.fill")?.middImage(), for: .normal)
     }
     
     func setActionToButtonView() {
+        playButton.setImage(UIImage(systemName: "play.fill")?.middImage(), for: .normal)
         playButton.addTarget(self, action: #selector(clickPlayButton), for: .touchUpInside)
     }
 
@@ -67,7 +66,7 @@ class MusicControllerView: UIView {
         progressBar.addGestureRecognizer(longGesture)
     }
     
-    
+    // MARK: - Action
     @objc func clickPlayButton() {
         guard let player = player else { return }
         if player.isPlaying {
@@ -77,6 +76,34 @@ class MusicControllerView: UIView {
         }
     }
     
+    func stopPlayer() {
+        guard let player = player else { return }
+        player.stop()
+        timer?.invalidate()
+        playButton.setImage(UIImage(systemName: "play.fill")?.middImage(), for: .normal)
+    }
+    
+    func startPlayer() {
+        guard let player = player else { return }
+        player.play()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerBehavior), userInfo: nil, repeats: true)
+        playButton.setImage(UIImage(systemName: "pause.fill")?.middImage(), for: .normal)
+    }
+    
+    /// Timer 행동 - `ProgressBar`, `Label`,  `가사스크롤` 변경하기
+    @objc func timerBehavior() {
+        guard let player = player else { return }
+        let percent = player.currentTime/player.duration
+        if percent == 0 {
+            stopPlayer()
+        }
+        
+        if !isInterruptable {
+            changeView(isFromButton: true, sender: nil)
+        }
+    }
+    
+    /// `ProgressBar`, `Label`,  `가사스크롤`, `Player` 변경하는 제스쳐
     @objc func touchProgressBar( sender: UILongPressGestureRecognizer) {
         switch sender.state {
         case .began:
@@ -95,32 +122,6 @@ class MusicControllerView: UIView {
         showHelpTimeLabel(by: sender, text: convertToString(by: player, progressBar, sender))
     }
     
-    func startPlayer() {
-        guard let player = player else { return }
-        player.play()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerBehavior), userInfo: nil, repeats: true)
-        playButton.setImage(UIImage(systemName: "pause.fill")?.middImage(), for: .normal)
-    }
-    
-    @objc func timerBehavior() {
-        guard let player = player else { return }
-        let percent = player.currentTime/player.duration
-        if percent == 0 {
-            stopPlayer()
-        }
-        
-        if !isInterruptable {
-            changeView(isFromButton: true, sender: nil)
-        }
-    }
-    
-    func stopPlayer() {
-        guard let player = player else { return }
-        player.stop()
-        timer?.invalidate()
-        playButton.setImage(UIImage(systemName: "play.fill")?.middImage(), for: .normal)
-    }
-    
     /// `ProgressBar`, `Label`,  `가사스크롤` 변경하기
     ///  1. 버튼을 클릭할때와, 2. progressBar를 통해서일때 분기함.
     func changeView(isFromButton: Bool, sender: UILongPressGestureRecognizer? ) {
@@ -135,7 +136,6 @@ class MusicControllerView: UIView {
             if let progress = convertToTimeInterval(by: player, progressBar, sender) {
                 progressBar.progress = Float(progress / player.duration)
             }
-            
         }
     }
     
@@ -144,7 +144,6 @@ class MusicControllerView: UIView {
             self.progressBar.transform = self.isInterruptable ? CGAffineTransform(scaleX: 1.0, y: 1.6) :  CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
     }
-    
     
     /// `가사 터치시` Notification으로 전달받아, `가사`, `progress bar`, `label` 변경
     func addObserverForSyncingLyrics() {

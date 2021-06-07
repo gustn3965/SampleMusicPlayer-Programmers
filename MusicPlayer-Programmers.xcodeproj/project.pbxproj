@@ -26,7 +26,7 @@
 		DB0F5AFD2668ED52005AC69E /* MusicControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F5AFC2668ED52005AC69E /* MusicControllerView.swift */; };
 		DB283DD5266B37CE00561CF2 /* ConvertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB283DD4266B37CE00561CF2 /* ConvertHelper.swift */; };
 		DB283DD8266B5AEE00561CF2 /* AnimationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB283DD7266B5AEE00561CF2 /* AnimationTransition.swift */; };
-		DB283DDC266B82A900561CF2 /* Image+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB283DDB266B82A900561CF2 /* Image+Helper.swift */; };
+		DB283DDC266B82A900561CF2 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB283DDB266B82A900561CF2 /* ImageHelper.swift */; };
 		DB283DE4266BB25700561CF2 /* MusicPlayer_ProgrammersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB283DE3266BB25700561CF2 /* MusicPlayer_ProgrammersUITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +71,7 @@
 		DB0F5AFC2668ED52005AC69E /* MusicControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicControllerView.swift; sourceTree = "<group>"; };
 		DB283DD4266B37CE00561CF2 /* ConvertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertHelper.swift; sourceTree = "<group>"; };
 		DB283DD7266B5AEE00561CF2 /* AnimationTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTransition.swift; sourceTree = "<group>"; };
-		DB283DDB266B82A900561CF2 /* Image+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Helper.swift"; sourceTree = "<group>"; };
+		DB283DDB266B82A900561CF2 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		DB283DE1266BB25700561CF2 /* MusicPlayer-ProgrammersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MusicPlayer-ProgrammersUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB283DE3266BB25700561CF2 /* MusicPlayer_ProgrammersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer_ProgrammersUITests.swift; sourceTree = "<group>"; };
 		DB283DE5266BB25700561CF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -129,9 +129,9 @@
 				DB283DD6266B5AE700561CF2 /* Transition */,
 				DB283DD1266B36EC00561CF2 /* Helper */,
 				DB0F5AEC2668886F005AC69E /* Model */,
+				DB0F5AE92668884F005AC69E /* Fetcher */,
 				DB0F5AEB26688866005AC69E /* View */,
 				DB0F5AEA26688859005AC69E /* ViewController */,
-				DB0F5AE92668884F005AC69E /* Fetcher */,
 				DB0F5AB726687867005AC69E /* AppDelegate.swift */,
 				DB0F5AB926687867005AC69E /* SceneDelegate.swift */,
 				DB0F5AC026687868005AC69E /* Assets.xcassets */,
@@ -192,7 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				DB283DD4266B37CE00561CF2 /* ConvertHelper.swift */,
-				DB283DDB266B82A900561CF2 /* Image+Helper.swift */,
+				DB283DDB266B82A900561CF2 /* ImageHelper.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -358,7 +358,7 @@
 				DB0F5AFD2668ED52005AC69E /* MusicControllerView.swift in Sources */,
 				DB0F5ACC266878C0005AC69E /* Song.swift in Sources */,
 				DB0F5ACE26687967005AC69E /* LyricsViewController.swift in Sources */,
-				DB283DDC266B82A900561CF2 /* Image+Helper.swift in Sources */,
+				DB283DDC266B82A900561CF2 /* ImageHelper.swift in Sources */,
 				DB0F5AF22668A57C005AC69E /* MusicView.swift in Sources */,
 				DB0F5ABC26687867005AC69E /* MusicViewController.swift in Sources */,
 				DB0F5AB826687867005AC69E /* AppDelegate.swift in Sources */,

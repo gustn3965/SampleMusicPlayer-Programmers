@@ -21,10 +21,10 @@ class MusicFetcher {
     typealias SongResult = Result<Song, MusicFetcherError>
     typealias AudioResult = Result<AVAudioPlayer, MusicFetcherError>
     typealias ImageResult = Result<UIImage, MusicFetcherError>
-
+    
     var songFetcher = SongFetcher()
     var song: Song?
-
+    
     func getSongData(_ completion: @escaping (SongResult) -> Void ) {
         songFetcher.getSong { songResult in
             switch songResult {
@@ -38,13 +38,13 @@ class MusicFetcher {
         }
     }
     
-    func getMusicInfo( audioCompletion: @escaping ((AudioResult) -> Void),
-                       imageCompletion: ((ImageResult) -> Void)?)  {
-
+    func getMusic( audioCompletion: @escaping ((AudioResult) -> Void),
+                   imageCompletion: ((ImageResult) -> Void)?)  {
+        
         getSongData { songResult in    
             switch songResult {
             case .success(let song): print()
-                self.getMusic(url: song.file) { audioResult in
+                self.getMusicPlayer(url: song.file) { audioResult in
                     switch audioResult {
                     case .success(let player):
                         audioCompletion(.success(player))
@@ -52,7 +52,7 @@ class MusicFetcher {
                         audioCompletion(.failure(error))
                     }
                 }
-                self.getImage(url: song.image) { imageResult in
+                self.getMusicImage(url: song.image) { imageResult in
                     switch imageResult {
                     case .success(let image):
                         imageCompletion?(.success(image))
@@ -60,14 +60,14 @@ class MusicFetcher {
                         imageCompletion?(.failure(error))
                     }
                 }
-
+                
             case .failure(let error):
                 audioCompletion(.failure(error))
             }
         }
     }
     
-    func getMusic(url: String, _ completion: @escaping ((AudioResult) -> Void )) {
+    func getMusicPlayer(url: String, _ completion: @escaping ((AudioResult) -> Void )) {
         guard let url = URL(string: url) else {
             completion(.failure(.invalidURL))
             return
@@ -81,10 +81,9 @@ class MusicFetcher {
                 completion(.failure(.invalidPlayer))
             }
         }
-        
     }
     
-    func getImage(url: String, _ completion: ((ImageResult) -> Void )?) {
+    func getMusicImage(url: String, _ completion: ((ImageResult) -> Void )?) {
         guard let url = URL(string: url) else {
             completion?(.failure(.invalidURL))
             return 
@@ -97,7 +96,7 @@ class MusicFetcher {
                     completion?(.failure(.invalidImage))
                     return 
                 }
-                 completion?(.success(image))
+                completion?(.success(image))
             } catch {
                 completion?(.failure(.invalidImage))
             }
